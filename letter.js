@@ -22,6 +22,9 @@ var Letter = function(letter){
         var currentLetter = this.letter.toLowerCase().trim();
         if(inputLetter === currentLetter) {
             this.guessed = true;
+            return true;
+        } else {
+            return false;
         }
     }
 }
