@@ -11,7 +11,7 @@ var Letter = function(letter){
 
     this.display = function(){
         if(this.guessed){
-            return this.letter;
+            return this.letter.toString();
         } else {
             return "_";
         }
