@@ -15,10 +15,10 @@ var Word = function(word) {
 
     for(var i = 0; i < word.length; i++){
         
-        var currentCharacter = word[i].toLowerCase();
+        var currentCharacter = word[i];
         
         // handle apostrophes, spaces and other symbols
-        if(letters.indexOf(currentCharacter) === -1){
+        if(letters.indexOf(currentCharacter.toLowerCase()) === -1){
             this.wordArray.push(currentCharacter);
         } else {
             this.wordArray.push(new Letter(currentCharacter));

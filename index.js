@@ -54,16 +54,16 @@ var gameWords = [
             
             if(currentGuesses.indexOf(userGuess) === -1){
                 currentGuesses.push(userGuess);
+                console.log("\n");
                 if(currentWord.wordCheck(userGuess)){
                     console.log("CORRECT!");
                 } else {
                     console.error("INCORRECT!");
                     userTries--;
                 }
-                console.log(`-----------------------------------`);
                 console.log(currentWord.wordDisplay());
                 console.log(`Tries remaining: ${userTries}`);
-                console.log(`-----------------------------------`);
+                console.log("\n");
                 if(userTries === 0){
                     console.log("You lost! There are no more tries available.");
                     playAgainPrompt();
