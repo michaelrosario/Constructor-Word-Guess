@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/michaelrosario/Constructor-Word-Guess#readme",
   "dependencies": {
+    "inquirer": "^6.2.2",
     "requirer": "0.0.4"
   }
 }

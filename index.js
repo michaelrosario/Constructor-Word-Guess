@@ -1,4 +1,5 @@
 var Word = require("./word.js");
+var inquirer = require("inquirer");
 
 var gameWords = [
     "Batteries Not Included",
