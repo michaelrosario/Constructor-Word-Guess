@@ -46,13 +46,14 @@ var Word = function(word) {
     // Check if the character is in the array using letter.js function
     this.wordCheck = function(character) {
         var isCorrect = false;
-        var currentCharacter = character.toLowerCase();
-        for(var i = 0; i < this.word.length; i++){
+        if(/^[a-z0-9]$/i.test(character)){
+            var currentCharacter = character.toLowerCase();
             if(letters.indexOf(currentCharacter) !== -1) {
-                if(this.wordArray[i] != " " && this.wordArray[i].checker(currentCharacter)){
-                    isCorrect = true;
+                for(var i = 0; i < this.word.length; i++){
+                    if(this.wordArray[i] != " " && this.wordArray[i].checker(currentCharacter)){
+                        isCorrect = true;
+                    }
                 }
-                //console.log(this.wordArray[i]);
             }
         }
         return isCorrect;

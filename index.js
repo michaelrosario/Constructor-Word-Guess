@@ -1,5 +1,6 @@
 var Word = require("./word.js");
 var inquirer = require("inquirer");
+inquirer.registerPrompt('autosubmit', require('inquirer-autosubmit-prompt'));
 
 var gameWords = [
     "Batteries Not Included",
@@ -43,12 +44,14 @@ var gameWords = [
     function guessPrompt(){
         inquirer
         .prompt({
-           type: 'input',
+           type: 'autosubmit',
            name: 'userInput',
-           message: 'Type a letter: '
+           message: 'Type a letter: ',
+           autoSubmit: input => input.length === 1
         })
         .then(answers => {
             var userGuess = answers.userInput;
+            
             if(currentGuesses.indexOf(userGuess) === -1){
                 currentGuesses.push(userGuess);
                 if(currentWord.wordCheck(userGuess)){
@@ -59,17 +62,44 @@ var gameWords = [
                 }
                 console.log(`-----------------------------------`);
                 console.log(currentWord.wordDisplay());
-                console.log(`Tries remaining ${userTries}`);
+                console.log(`Tries remaining: ${userTries}`);
                 console.log(`-----------------------------------`);
-                guessPrompt();
+                if(userTries === 0){
+                    console.log("You lost! There are no more tries available.");
+                    playAgainPrompt();
+                } else if(currentWord.wordDisplay().indexOf("_") === -1){
+                    console.log("YOU WON!!! CONGRATULATIONS");
+                    playAgainPrompt();
+                } else {
+                    guessPrompt();
+                }
+                
             } else {
+
                 console.log(`You guessed the letter "${userGuess}" already.`);
                 guessPrompt();
+
             }
+
         });
     }
 
-
+    function playAgainPrompt(){
+        inquirer
+            .prompt({
+                type: 'list',
+                name: 'userInput',
+                message: 'Do you want to play again? ',
+                choices: ["Yes, play again","No, exit"]
+            })
+            .then(answers => {
+                if(answers.userInput === 'Yes, play again'){
+                    startGame();
+                } else {
+                    return false;
+                }
+            });
+    }
 
   startGame();
 
