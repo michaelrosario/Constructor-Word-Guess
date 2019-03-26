@@ -6,7 +6,7 @@ Word Guess command-line game using constructor functions, inquirer package and N
 - Type `letters` to try to guess the word.
 - You have 10 tries per game
 
-![image][./sample.gif]
+![image][sample.gif]
 
 Good luck and have fun!
 
