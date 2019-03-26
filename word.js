@@ -26,6 +26,7 @@ var Word = function(word) {
 
     }
 
+    // Display the word with letters or underscore
     this.wordDisplay = function() {
         var currentWord = [];
         for(var i = 0; i < this.word.length; i++) {
@@ -42,12 +43,16 @@ var Word = function(word) {
         return currentWord.join(" ");
     }
 
+    // Check if the character is in the array using letter.js function
     this.wordCheck = function(character) {
         var isCorrect = false;
         var currentCharacter = character.toLowerCase();
-        for(var i = 0; i < this.wordArray.length; i++){
-            if(this.wordArray[i].checker(currentCharacter)){
-                isCorrect = true;
+        for(var i = 0; i < this.word.length; i++){
+            if(letters.indexOf(currentCharacter) !== -1) {
+                if(this.wordArray[i] != " " && this.wordArray[i].checker(currentCharacter)){
+                    isCorrect = true;
+                }
+                //console.log(this.wordArray[i]);
             }
         }
         return isCorrect;

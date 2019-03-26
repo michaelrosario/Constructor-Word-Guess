@@ -21,15 +21,56 @@ var gameWords = [
     "The Avengers"
   ];
 
-  var currentWord = "";
+  // Variables
+  var currentWord, userTries;
+  var currentGuesses = [];
 
-  function startGame(){
-    var randomIndex = Math.floor(Math.random() * gameWords.length);
-    //console.log(gameWords[randomIndex]);
-    currentWord = new Word(gameWords[randomIndex]);
-    gameWords.splice(randomIndex,1);
-    console.log(currentWord.wordDisplay());
-  }
+    function startGame(){
+
+        userTries = 10;
+        currentGuesses = [];
+        var randomIndex = Math.floor(Math.random() * gameWords.length);
+        currentWord = new Word(gameWords[randomIndex]);
+        gameWords.splice(randomIndex,1);
+        console.log("Guess the word:");
+        console.log(currentWord.wordDisplay());
+
+        // Ask user for input
+        guessPrompt();
+        
+    }
+
+    function guessPrompt(){
+        inquirer
+        .prompt({
+           type: 'input',
+           name: 'userInput',
+           message: 'Type a letter: '
+        })
+        .then(answers => {
+            var userGuess = answers.userInput;
+            if(currentGuesses.indexOf(userGuess) === -1){
+                currentGuesses.push(userGuess);
+                if(currentWord.wordCheck(userGuess)){
+                    console.log("CORRECT!");
+                } else {
+                    console.error("INCORRECT!");
+                    userTries--;
+                }
+                console.log(`-----------------------------------`);
+                console.log(currentWord.wordDisplay());
+                console.log(`Tries remaining ${userTries}`);
+                console.log(`-----------------------------------`);
+                guessPrompt();
+            } else {
+                console.log(`You guessed the letter "${userGuess}" already.`);
+                guessPrompt();
+            }
+        });
+    }
+
+
 
   startGame();
-  
+
+
